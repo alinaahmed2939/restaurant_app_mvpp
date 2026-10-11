@@ -1,0 +1,429 @@
+{
+  "info": {
+    "name": "Restaurant API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:5000"
+    },
+    {
+      "key": "menuItemId",
+      "value": ""
+    }
+  ],
+  "item": [
+    {
+      "name": "1. GET all menu items",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Status is 200\", function () { pm.response.to.have.status(200); });"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/menu",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "menu"
+          ]
+        }
+      }
+    },
+    {
+      "name": "2. GET menu filtered by category (Mains)",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Status is 200\", function () { pm.response.to.have.status(200); });"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/menu?category=Mains",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "menu"
+          ],
+          "query": [
+            {
+              "key": "category",
+              "value": "Mains"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "3. GET menu search (burger, not case sensitive)",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Status is 200\", function () { pm.response.to.have.status(200); });"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/menu?search=BURGER",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "menu"
+          ],
+          "query": [
+            {
+              "key": "search",
+              "value": "BURGER"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "4. POST create a menu item",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Status is 201\", function () { pm.response.to.have.status(201); });",
+              "var json = pm.response.json();\nvar item = json.data || json.item || json;\nvar id = item._id || item.id;\npm.test(\"Response contains an _id\", function () { pm.expect(id).to.exist; });\npm.collectionVariables.set(\"menuItemId\", id);"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/api/menu",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "menu"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"name\": \"Test Pasta\",\n  \"description\": \"Created from Postman\",\n  \"price\": 9.5,\n  \"category\": \"Mains\",\n  \"isAvailable\": true\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "5. GET one item by id",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Status is 200\", function () { pm.response.to.have.status(200); });"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/menu/{{menuItemId}}",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "menu",
+            "{{menuItemId}}"
+          ]
+        }
+      }
+    },
+    {
+      "name": "6. PUT update the item (new price)",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Status is 200\", function () { pm.response.to.have.status(200); });"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/api/menu/{{menuItemId}}",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "menu",
+            "{{menuItemId}}"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"price\": 11.0\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "7. DELETE the item",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Status is 200\", function () { pm.response.to.have.status(200); });"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/menu/{{menuItemId}}",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "menu",
+            "{{menuItemId}}"
+          ]
+        }
+      }
+    },
+    {
+      "name": "8. FAIL - POST with missing name (400)",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Status is 400\", function () { pm.response.to.have.status(400); });"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/api/menu",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "menu"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"description\": \"No name\",\n  \"price\": 5,\n  \"category\": \"Mains\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "9. FAIL - POST with negative price (400)",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Status is 400\", function () { pm.response.to.have.status(400); });"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/api/menu",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "menu"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"name\": \"Bad Price\",\n  \"description\": \"x\",\n  \"price\": -5,\n  \"category\": \"Mains\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "10. FAIL - GET with invalid id format (400)",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Status is 400\", function () { pm.response.to.have.status(400); });"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/menu/abc123",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "menu",
+            "abc123"
+          ]
+        }
+      }
+    },
+    {
+      "name": "11. FAIL - GET with valid-looking id that does not exist (404)",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Status is 404\", function () { pm.response.to.have.status(404); });"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/menu/64b7f0f0f0f0f0f0f0f0f0f0",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "menu",
+            "64b7f0f0f0f0f0f0f0f0f0f0"
+          ]
+        }
+      }
+    },
+    {
+      "name": "12. FAIL - DELETE with invalid id format (400)",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Status is 400\", function () { pm.response.to.have.status(400); });"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/menu/not-a-real-id",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "menu",
+            "not-a-real-id"
+          ]
+        }
+      }
+    }
+  ]
+}
