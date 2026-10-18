@@ -1,4 +1,4 @@
-# Restaurant App Server
+﻿# Restaurant App Server
 
 Node.js + Express REST API with an Oracle database. This is the backend for the Restaurant App (see the main [README](../README.md) for the whole project).
 
@@ -30,9 +30,9 @@ Copy `.env.example` to `.env` and fill in the values. Never commit `.env`.
 | Variable | Meaning |
 | --- | --- |
 | `PORT` | Server port (5000) |
-| `ORACLE_USER` | Database user |
-| `ORACLE_PASSWORD` | Database password |
-| `ORACLE_CONNECT_STRING` | `host:port/service_name`, for example `localhost:1521/XEPDB1` |
+| `DB_USER` | Database user |
+| `DB_PASSWORD` | Database password |
+| `DB_CONNECT_STRING` | `host:port/service_name`, for example `localhost:1521/XEPDB1` |
 | `JWT_SECRET` | Secret used to sign tokens |
 
 ## Design notes

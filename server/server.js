@@ -22,7 +22,10 @@ app.get("/api/health", (req, res) => {
 
 // Menu routes
 app.use("/api/menu", require("./routes/menuRoutes"));
-app.use("/api/auth", require("./routes/authRoutes"));
+app.use("/api/auth", require("./routes/authRoutes"));                                                                            
+app.use("/api/orders", require("./routes/orderRoutes"));
+app.use("/api/reservations", require("./routes/reservationRoutes"));
+app.use("/api/tables", require("./routes/tableRoutes"));
 
 // 404 handler: runs only if no route above matched the URL
 app.use((req, res) => {
